@@ -47,7 +47,7 @@ body {
     background-color: #e0e0e0;
 }
 
-add-book-form {
+.add-book-form {
     display: none;
 }
 

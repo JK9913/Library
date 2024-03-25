@@ -1,6 +1,22 @@
 const myLibrary = [{Title:"Harry Potter", Author:"J.K. Rowling",Genre:"Fantasy",HasRead:true},{Title: "LOTR", Author:"J.R.R. Tolkien", Genre: "Fantasy", HasRead:false },{Title: "Game of Thrones", Author: "George R.R. Martin", Genre: "Fantasy", HasRead:false}];
 const bookcase = document.querySelector(".bookcase");
 const addBookButton = document.querySelector(".add-book");
+const button = document.querySelector(".add-book-button");
+const form = document.querySelector(".add-book-form");
+
+
+
+function showForm() {
+    if (form.style.display === "block") {
+        form.style.display = "none";
+        console.log("Form is hidden");
+        return;
+    } else {
+        form.style.display = "block";
+        console.log("Form is visible");
+    }
+    
+}
 
 
 
@@ -54,3 +70,10 @@ function addBookToLibrary() {
 }
 
 displayBooks();
+
+button.addEventListener('click', function(event) {
+    console.log("Form is clicked");
+    showForm();
+    event.preventDefault(); // Prevent form submission
+    
+});
