@@ -23,7 +23,7 @@ class Book {
         if(hasRead) {
             this._hasRead = false;
         } else {
-            true;
+            this._hasRead=true;
         }
     }
     
@@ -38,6 +38,8 @@ const addBookButton = document.querySelector(".add-book");
 const button = document.querySelector(".add-book-button");
 const form = document.querySelector(".add-book-form");
 const submitBook = document.querySelector(".submit-book-button");
+let deleteButton;
+let readButton;
 
 
 submitBook.addEventListener('click', function(event) {
@@ -130,29 +132,56 @@ function displayBooks() {
 
         // increse index
         index++;
-    });
+
+        deleteButton = document.querySelectorAll(".delete-button");
+        readButton = document.querySelectorAll(".green-button");
     
-    const deleteButton = document.querySelectorAll(".delete-button");
-    const readButton = document.querySelectorAll(".green-button");
-
-    deleteButton.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            console.log("Delete button is clicked");
-            // Remove book from library
-            let parentELement1 = event.target.parentElement;
-            console.log(parentELement1);
-            parentELement2 = parentELement1.parentElement;
-            console.log(parentELement2);
-            // Remove book from bookcase
-            parentELement2.remove();
-
-            myLibrary.splice(parentELement2.classList[1], 1);
-
+        deleteButton.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                deleteBook(event);
+        
+            });
+        });
+        
+        readButton.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                readBook(event);
+            });
         });
     });
 }
+function deleteBook(event) {
+    console.log("Delete button is clicked");
+    // Remove book from library
+    let parentELement1 = event.target.parentElement;
+    console.log(parentELement1);
+    parentELement2 = parentELement1.parentElement;
+    console.log(parentELement2);
+    // Remove book from bookcase
+    parentELement2.remove();
 
+    myLibrary.splice(parentELement2.classList[1], 1);
+}
+
+function readBook(event) {
+    console.log("Read button is clicked");
+    let parentELement1 = event.target.parentElement;
+    console.log(parentELement1);
+    parentELement2 = parentELement1.parentElement;
+    console.log(parentELement2);
+    let book = myLibrary[parentELement2.classList[1]];
+    console.log(book);
+    if (book._hasRead) {
+        book._hasRead = false;
+    } else {
+        book._hasRead = true;
+    }
+    myLibrary[parentELement2.classList[1]] = book;
+    bookcase.innerHTML = "";
+    displayBooks();
+}
 
 
 
@@ -167,6 +196,8 @@ function addBookToLibrary() {
     bookcase.innerHTML = "";
     displayBooks();
     showForm();
+
+
     return;
 }
 
